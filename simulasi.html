@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi Gerak Titik pada Denah - Skala dan Proporsi</title>
+<style>
+:root{--green:#176b45;--light:#e9f6ed;--yellow:#ffdf66;--ink:#183329}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f8f3;color:var(--ink)}
+header{background:var(--green);color:white;padding:24px 18px;text-align:center;border-bottom:7px solid var(--yellow)}
+header h1{margin:0 0 8px;font-size:clamp(22px,4vw,34px)}header p{margin:0}
+main{max-width:1100px;margin:20px auto;padding:0 14px;display:grid;grid-template-columns: minmax(0,2fr) minmax(260px,1fr);gap:18px}
+.card{background:white;border-radius:16px;padding:18px;box-shadow:0 4px 16px #173b2412}h2{margin-top:0;color:var(--green);font-size:20px}
+#map{width:100%;height:auto;display:block;background:#eef6e9;border:2px solid #c9dfc9;border-radius:12px;touch-action:none}
+.controls{display:grid;gap:12px}.control{background:var(--light);padding:12px;border-radius:10px}label{font-weight:bold;display:block;margin-bottom:7px}select,input[type=range]{width:100%}button{border:0;background:var(--green);color:white;padding:10px 14px;border-radius:9px;cursor:pointer;font-weight:bold}button.secondary{background:#e6b900;color:#243020}button:focus,input:focus,select:focus{outline:3px solid #ffdf66}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#fff7cf;border-radius:10px;padding:12px}.metric small{display:block;color:#5b5b38}.metric strong{font-size:20px}
+.note{line-height:1.5;background:#f0f7f1;padding:12px;border-radius:10px}.formula{font-size:18px;text-align:center;background:#fff7cf;padding:12px;border-radius:10px;font-weight:bold}
+footer{text-align:center;padding:18px;color:#52645a;font-size:13px}
+@media(max-width:760px){main{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>Jelajah Denah: Gerak Titik, Skala & Proporsi</h1><p>Simulasi interaktif matematika kelas VII SMP</p></header>
+<main>
+<section class="card"><h2>Denah lingkungan</h2>
+<svg id="map" viewBox="0 0 700 440" role="img" aria-label="Denah lingkungan dengan jalan dan lokasi"><defs><pattern id="grid" width="35" height="35" patternUnits="userSpaceOnUse"><path d="M35 0H0V35" fill="none" stroke="#d7e6d4" stroke-width="1"/></pattern></defs>
+<rect width="700" height="440" fill="#eef6e9"/><rect width="700" height="440" fill="url(#grid)"/>
+<!-- jalan --> <path d="M30 90H670 M30 220H670 M30 350H670 M120 25V415 M300 25V415 M490 25V415 M625 25V415" stroke="#fff" stroke-width="28"/><path d="M30 90H670 M30 220H670 M30 350H670 M120 25V415 M300 25V415 M490 25V415 M625 25V415" stroke="#c5c9c1" stroke-width="2" stroke-dasharray="8 8"/>
+<g font-family="Arial" font-size="15" font-weight="bold" text-anchor="middle">
+<g><rect x="42" y="35" width="145" height="42" rx="8" fill="#d5e9ff"/><text x="114" y="61" fill="#17466b">Rumah</text></g>
+<g><rect x="230" y="145" width="140" height="42" rx="8" fill="#d8f0d2"/><text x="300" y="171" fill="#245c2b">Taman</text></g>
+<g><rect x="420" y="35" width="140" height="42" rx="8" fill="#ffe6c2"/><text x="490" y="61" fill="#754515">Sekolah</text></g>
+<g><rect x="42" y="275" width="155" height="42" rx="8" fill="#eadcff"/><text x="119" y="301" fill="#4f2d78">Perpustakaan</text></g>
+<g><rect x="545" y="275" width="115" height="42" rx="8" fill="#ffdada"/><text x="602" y="301" fill="#7b2929">Pasar</text></g>
+</g>
+<g id="route" stroke="#176b45" stroke-width="4" stroke-dasharray="7 6" fill="none"></g>
+<circle id="point" cx="114" cy="56" r="13" fill="#e83e35" stroke="white" stroke-width="4"/><text id="pointlabel" x="114" y="30" text-anchor="middle" font-weight="bold" fill="#a1231d">Titik A</text>
+</svg>
+<p class="note">Geser titik merah pada denah atau gunakan pilihan lokasi. Denah ini bersifat ilustratif; jarak dihitung berdasarkan koordinat denah.</p>
+</section>
+<aside class="card controls"><h2>Pengaturan simulasi</h2>
+<div class="control"><label for="start">Lokasi awal</label><select id="start"><option value="114,56">Rumah</option><option value="300,166">Taman</option><option value="490,56">Sekolah</option><option value="119,296">Perpustakaan</option><option value="602,296">Pasar</option></select></div>
+<div class="control"><label for="dest">Lokasi tujuan</label><select id="dest"><option value="490,56">Sekolah</option><option value="300,166">Taman</option><option value="119,296">Perpustakaan</option><option value="602,296">Pasar</option><option value="114,56">Rumah</option></select></div>
+<div class="control"><label for="scale">Skala denah: 1 cm = <span id="scaleText">100</span> m</label><input id="scale" type="range" min="25" max="500" step="25" value="100"><small>Geser untuk mengubah skala.</small></div>
+<div class="control"><label for="speed">Kecepatan gerak titik: <span id="speedText">2</span> cm/detik</label><input id="speed" type="range" min="1" max="10" value="2"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button id="move">▶ Gerakkan titik</button><button class="secondary" id="reset">↺ Reset</button></div>
+<div class="metrics"><div class="metric"><small>Jarak denah</small><strong id="mapDist">— cm</strong></div><div class="metric"><small>Jarak sebenarnya</small><strong id="realDist">— m</strong></div><div class="metric"><small>Waktu tempuh (estimasi)</small><strong id="time">— detik</strong></div><div class="metric"><small>Posisi titik</small><strong id="pos">Rumah</strong></div></div>
+<div class="formula">Jarak sebenarnya = jarak denah × skala</div>
+<p class="note" id="explain">Pilih lokasi awal dan tujuan untuk melihat perbandingan jaraknya.</p>
+</aside>
+</main><footer>Media pembelajaran skala dan proporsi • Disusun oleh Cahya Agung Desna Saputra</footer>
+<script>
+const places={"114,56":"Rumah","300,166":"Taman","490,56":"Sekolah","119,296":"Perpustakaan","602,296":"Pasar"};
+const start=document.getElementById('start'),dest=document.getElementById('dest'),scale=document.getElementById('scale'),speed=document.getElementById('speed'),point=document.getElementById('point'),label=document.getElementById('pointlabel'),route=document.getElementById('route');
+let anim=null,current={x:114,y:56};
+function coords(v){let a=v.split(',').map(Number);return{x:a[0],y:a[1]}}
+function dist(a,b){return Math.hypot(b.x-a.x,a.y-a.y)/35} // approximate cm based on map grid
+function update(){let a=coords(start.value),b=coords(dest.value),d=dist(a,b),s=+scale.value,v=+speed.value;document.getElementById('scaleText').textContent=s;document.getElementById('speedText').textContent=v;document.getElementById('mapDist').textContent=d.toFixed(2)+' cm';document.getElementById('realDist').textContent=(d*s).toFixed(1)+' m';document.getElementById('time').textContent=(d/v).toFixed(1);document.getElementById('pos').textContent=places[start.value];document.getElementById('explain').textContent=`Jarak pada denah ${d.toFixed(2)} cm. Dengan skala 1 cm = ${s} m, jarak sebenarnya ${d.toFixed(2)} × ${s} = ${(d*s).toFixed(1)} m. Ini menunjukkan hubungan proporsional antara jarak denah dan jarak sebenarnya.`;route.innerHTML=`<path d="M ${a.x} ${a.y} L ${b.x} ${b.y}"/>`;if(!anim){current=a;point.setAttribute('cx',a.x);point.setAttribute('cy',a.y);label.setAttribute('x',a.x);label.setAttribute('y',a.y-25);label.textContent='Titik A';}}
+function movePoint(){if(anim)cancelAnimationFrame(anim);let a=coords(start.value),b=coords(dest.value),begin=performance.now(),duration=Math.max(500,dist(a,b)/(+speed.value)*700);function frame(now){let t=Math.min(1,(now-begin)/duration);current={x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t};point.setAttribute('cx',current.x);point.setAttribute('cy',current.y);label.setAttribute('x',current.x);label.setAttribute('y',current.y-25);label.textContent=t<1?'Titik A':'Tiba!';if(t<1)anim=requestAnimationFrame(frame);else anim=null;}anim=requestAnimationFrame(frame);}
+[start,dest,scale,speed].forEach(el=>el.addEventListener('input',()=>{if(anim)cancelAnimationFrame(anim);anim=null;update()}));document.getElementById('move').onclick=movePoint;document.getElementById('reset').onclick=()=>{if(anim)cancelAnimationFrame(anim);anim=null;current=coords(start.value);point.setAttribute('cx',current.x);point.setAttribute('cy',current.y);label.setAttribute('x',current.x);label.setAttribute('y',current.y-25);label.textContent='Titik A';update()};
+// Drag titik di denah
+const svg=document.getElementById('map');let dragging=false;point.addEventListener('pointerdown',e=>{dragging=true;point.setPointerCapture(e.pointerId)});point.addEventListener('pointermove',e=>{if(!dragging)return;let r=svg.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*700,y=(e.clientY-r.top)/r.height*440;x=Math.max(20,Math.min(680,x));y=Math.max(20,Math.min(420,y));current={x,y};point.setAttribute('cx',x);point.setAttribute('cy',y);label.setAttribute('x',x);label.setAttribute('y',y-25);label.textContent='Titik A (geser)'});point.addEventListener('pointerup',()=>{dragging=false});update();
+</script></body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#176b45">
+<title>Ruang Belajar Matematika | Kelas VII</title>
+<style>
+:root{--green:#176b45;--deep:#104b32;--yellow:#ffdf66;--bg:#f3f7f3;--ink:#183329;--muted:#65766c}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink)}
+.app{min-height:100vh;display:grid;grid-template-columns:260px 1fr}
+.sidebar{background:var(--deep);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:24px}
+.brand{padding:4px 10px}.brand-mark{width:42px;height:42px;border-radius:12px;background:var(--yellow);color:var(--deep);display:grid;place-items:center;font-size:23px;font-weight:800;margin-bottom:12px}
+.brand h1{font-size:20px;margin:0 0 6px}.brand p{font-size:12px;color:#c9dfd1;margin:0;line-height:1.5}
+.nav-label{font-size:10px;letter-spacing:1.5px;color:#a9c7b5;padding:0 10px;margin-bottom:8px}
+nav{display:grid;gap:7px}.nav-btn{width:100%;border:0;border-radius:10px;padding:12px 13px;background:transparent;color:#eaf5ed;text-align:left;font-size:14px;font-weight:700;cursor:pointer;display:flex;gap:11px;align-items:center}
+.nav-btn:hover,.nav-btn.active{background:#287b52;color:#fff}.nav-btn.active{box-shadow:inset 3px 0 var(--yellow)}
+.nav-icon{width:22px;text-align:center;font-size:17px}.side-note{margin-top:auto;padding:14px;background:#1b5b3d;border:1px solid #347654;border-radius:12px;font-size:12px;line-height:1.6;color:#d8eadf}
+.main{min-width:0;display:flex;flex-direction:column;min-height:100vh}.topbar{height:68px;background:#fff;border-bottom:1px solid #e1eae3;display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:12px}
+.crumb{font-size:14px;color:var(--muted)}.crumb strong{color:var(--ink)}.class-pill{background:#fff5c9;color:#66520c;border-radius:20px;padding:7px 12px;font-size:12px;font-weight:700;white-space:nowrap}
+.content{padding:26px;flex:1;min-height:0}.welcome{background:linear-gradient(120deg,#176b45,#429563);border-radius:18px;color:#fff;padding:30px;margin-bottom:22px;position:relative;overflow:hidden}
+.welcome:after{content:"∑";position:absolute;right:35px;top:-32px;font-size:180px;font-weight:800;color:#ffffff12}
+.welcome h2{font-size:clamp(24px,3vw,34px);margin:0 0 10px;position:relative;z-index:1}.welcome p{margin:0;max-width:650px;line-height:1.7;color:#e3f1e7;position:relative;z-index:1}
+.section-title{font-size:18px;margin:0 0 14px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:#fff;border:1px solid #e3ece5;border-radius:15px;padding:20px;box-shadow:0 5px 18px #163b2410;display:flex;flex-direction:column;min-height:210px}
+.card-icon{width:44px;height:44px;border-radius:12px;background:#e8f5ec;display:grid;place-items:center;font-size:22px;margin-bottom:14px}
+.card h3{margin:0 0 8px;font-size:17px}.card p{margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.6;flex:1}
+.open-btn{border:0;border-radius:9px;background:var(--green);color:white;padding:11px 14px;font-weight:700;cursor:pointer;text-align:center}.open-btn:hover{background:var(--deep)}
+.info{margin-top:20px;background:#fff9df;border:1px solid #f2e5a7;padding:15px 17px;border-radius:12px;font-size:13px;line-height:1.6}
+.viewer{display:none;background:#fff;border:1px solid #e1eae3;border-radius:14px;overflow:hidden;min-height:calc(100vh - 122px);box-shadow:0 4px 16px #163b2410}
+.viewer iframe{display:block;width:100%;height:calc(100vh - 124px);border:0;background:#fff}
+.mobile-menu{display:none;border:0;background:var(--green);color:#fff;border-radius:8px;padding:8px 11px;font-size:18px}
+footer{padding:14px 26px;color:#7b8b81;font-size:11px}
+@media(max-width:900px){.app{grid-template-columns:220px 1fr}.cards{grid-template-columns:1fr}.content{padding:18px}.welcome{padding:24px}}
+@media(max-width:650px){.app{display:block}.sidebar{display:none;position:fixed;z-index:10;top:0;bottom:0;left:0;width:270px;box-shadow:10px 0 30px #0003}.sidebar.show{display:flex}.topbar{height:60px;padding:0 14px}.mobile-menu{display:block}.content{padding:14px}.welcome{padding:22px}.viewer{min-height:calc(100vh - 90px)}.viewer iframe{height:calc(100vh - 92px)}.class-pill{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-mark">∑</div><h1>Ruang Belajar</h1><p>Matematika • Kelas VII SMP<br>Fase D</p></div>
+  <div><div class="nav-label">MENU PEMBELAJARAN</div>
+    <nav>
+      <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span>Dashboard</button>
+      <button class="nav-btn" data-page="bahan-ajar"><span class="nav-icon">📘</span>Bahan Ajar</button>
+      <button class="nav-btn" data-page="simulasi"><span class="nav-icon">🗺️</span>Game & Simulasi</button>
+      <button class="nav-btn" data-page="latihan-soal"><span class="nav-icon">✏️</span>Latihan Soal</button>
+    </nav>
+  </div>
+  <div class="side-note"><strong>Petunjuk belajar</strong><br>Mulai dari bahan ajar, lanjutkan dengan simulasi interaktif, kemudian uji pemahaman melalui latihan soal.</div>
+</aside>
+<section class="main">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px"><button class="mobile-menu" id="menuToggle" aria-label="Buka menu">☰</button><div class="crumb"><strong id="pageTitle">Dashboard</strong><span id="crumbTail"> / Ruang Belajar</span></div></div>
+    <div class="class-pill">MATEMATIKA • KELAS VII</div>
+  </header>
+  <main class="content">
+    <section id="homeView">
+      <div class="welcome"><h2>Selamat Datang di Ruang Belajar Matematika!</h2><p>Pelajari konsep rasio, proporsi, skala, dan laju perubahan melalui materi, simulasi denah interaktif, serta tantangan soal yang dirancang untuk kelas VII SMP.</p></div>
+      <h2 class="section-title">Pilih aktivitas pembelajaran</h2>
+      <div class="cards">
+        <article class="card"><div class="card-icon">📘</div><h3>Bahan Ajar</h3><p>Pelajari konsep rasio, proporsi, skala, dan laju perubahan beserta contoh penerapannya dalam kehidupan sehari-hari.</p><button class="open-btn" data-page="bahan-ajar">Buka Bahan Ajar →</button></article>
+        <article class="card"><div class="card-icon">🗺️</div><h3>Game & Simulasi</h3><p>Jelajahi denah lingkungan, tentukan lokasi awal dan tujuan, lalu amati jarak serta waktu tempuh berdasarkan skala.</p><button class="open-btn" data-page="simulasi">Buka Simulasi →</button></article>
+        <article class="card"><div class="card-icon">✏️</div><h3>Latihan Soal</h3><p>Uji pemahaman melalui misi rasio dan proporsi dengan tiga tingkat kesulitan: pemula, menengah, dan ahli.</p><button class="open-btn" data-page="latihan-soal">Mulai Latihan →</button></article>
+      </div>
+      <div class="info"><strong>Alur belajar yang disarankan:</strong> 1. Baca Bahan Ajar → 2. Coba Game & Simulasi → 3. Kerjakan Latihan Soal. Kamu dapat berpindah menu kapan saja melalui navigasi di sebelah kiri.</div>
+    </section>
+    <section class="viewer" id="pageView"><iframe id="contentFrame" title="Konten pembelajaran" src="about:blank"></iframe></section>
+  </main>
+  <footer>Media Pembelajaran Matematika • Skala, Rasio, dan Laju Perubahan</footer>
+</section>
+</div>
+<script>
+const pages={
+  home:{title:"Dashboard",src:null},
+  "bahan-ajar":{title:"Bahan Ajar",src:"pages/bahan-ajar.html"},
+  simulasi:{title:"Game & Simulasi",src:"pages/simulasi.html"},
+  "latihan-soal":{title:"Latihan Soal",src:"pages/latihan-soal.html"}
+};
+const homeView=document.getElementById("homeView"),pageView=document.getElementById("pageView"),frame=document.getElementById("contentFrame");
+const title=document.getElementById("pageTitle"),tail=document.getElementById("crumbTail"),sidebar=document.getElementById("sidebar");
+function openPage(key){
+  const page=pages[key]||pages.home;
+  document.querySelectorAll("[data-page]").forEach(el=>el.classList.toggle("active",el.dataset.page===key));
+  title.textContent=page.title;
+  tail.textContent=key==="home"?" / Ruang Belajar":" / Matematika Kelas VII";
+  if(page.src){homeView.style.display="none";pageView.style.display="block";if(frame.getAttribute("src")!==page.src)frame.setAttribute("src",page.src);}
+  else{pageView.style.display="none";homeView.style.display="block";}
+  sidebar.classList.remove("show");
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("[data-page]").forEach(el=>el.addEventListener("click",()=>openPage(el.dataset.page)));
+document.getElementById("menuToggle").addEventListener("click",()=>sidebar.classList.toggle("show"));
+</script>
+</body>
+</html>
